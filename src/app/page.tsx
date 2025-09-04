@@ -3,17 +3,21 @@ import { getCategories } from "@/services/category";
 import { PaginationControls } from "@/components/pagination";
 import { CategoryList } from "@/components/category";
 import { ProductCard } from "@/components/productCard"; 
+import { SortFilter } from "@/components/SortFilter";
+import { CategoryFilter } from "@/components/CategoryFilter";
+
 
 export default async function HomePage({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams: { page?: string; sort?: string};
 }) {
   const pageParam = searchParams.page;
   const currentPage = Number(pageParam) || 1;
+  const sortParam = searchParams.sort;
 
   const [productsResponse, categories] = await Promise.all([
-    getProducts({ page: currentPage, limit: 8 }),
+    getProducts({ page: currentPage, limit: 8, sort: sortParam }),
     getCategories()
   ]);
 
@@ -22,9 +26,16 @@ export default async function HomePage({
   return (
     <div className="bg-gray-100 min-h-screen">
       <main className="container mx-auto p-4 md:p-8">
-        <h1 className="text-3xl font-bold mb-8 text-gray-800">
-          Todos os produtos
-        </h1>
+        <div className="flex flex-col mb-6 gap-4 bg-gray p-4 rounded-lg ">
+          <div className="flex justify-between items-center w-full text-gray-800">
+            <CategoryFilter categories={categories} />
+            <SortFilter />
+          </div>
+
+          <h1 className="text-3xl font-bold text-gray-800">
+            Todos os produtos
+          </h1>
+        </div>
 
         {products.length === 0 ? (
           <p className="text-center text-gray-600">Nenhum produto encontrado.</p>
@@ -41,7 +52,7 @@ export default async function HomePage({
         />
       </main>
 
-      <div className="bg-white">
+      <div className="bg-gray">
         <CategoryList categories={categories} />
       </div>
     </div>

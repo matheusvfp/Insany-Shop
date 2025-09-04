@@ -3,24 +3,27 @@ import { getProducts } from "@/services/product";
 import { PaginationControls } from "@/components/pagination";
 import { CategoryList } from "@/components/category";
 import { ProductCard } from "@/components/productCard"; 
+import { SortFilter } from "@/components/SortFilter";
 
 export default async function CategoryPage({
   params,
   searchParams,
 }: {
   params: { slug: string };
-  searchParams: { page?: string };
+  searchParams: { page?: string; sort?: string };
 }) {
   const pageParam = searchParams.page;
   const currentPage = Number(pageParam) || 1;
+  const sortParam = searchParams.sort; 
 
   const [productsResponse, allCategories] = await Promise.all([
     getProducts({
       category: params.slug,
       page: currentPage,
       limit: 8,
+      sort: sortParam, 
     }),
-    getCategories()
+    getCategories(),
   ]);
 
   const { products, pagination } = productsResponse;
@@ -32,6 +35,7 @@ export default async function CategoryPage({
       <main className="container mx-auto p-4 md:p-8">
         <h1 className="text-3xl font-bold mb-8 text-gray-800">
           Categoria: <span className="text-blue-600">{categoryName}</span>
+           <SortFilter />
         </h1>
 
         {products.length === 0 ? (
@@ -43,6 +47,7 @@ export default async function CategoryPage({
             ))}
           </div>
         )}
+        
         
         <PaginationControls
           totalPages={pagination.totalPages}

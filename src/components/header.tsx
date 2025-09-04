@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { LuSearch, LuShoppingBag } from 'react-icons/lu';
-import { useCart } from '@/contexts/carContext';
+import { useCart } from '@/contexts/cartContext'; 
 
 export const Header = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -21,12 +21,9 @@ export const Header = () => {
   return (
     <header className="bg-white text-gray-800 p-4 shadow-md sticky top-0 z-10">
       <div className="container mx-auto flex items-center"> 
-        
-        
         <Link href="/" className="text-3xl font-bold text-gray-800 mr-auto"> 
           InsanyShop
         </Link>
-        
         
         <form 
           onSubmit={handleSearch} 
@@ -43,8 +40,7 @@ export const Header = () => {
             <LuSearch className="text-gray-500" size={20} />
           </button>
         </form>
-
-       
+        
         <div className="relative ml-auto"> 
           <Link href="/carrinho" aria-label="Ver carrinho de compras">
             <LuShoppingBag className="text-gray-800" size={28} />

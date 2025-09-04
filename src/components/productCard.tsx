@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/models/product";
-import { useCart } from "@/contexts/carContext";
+import { useCart } from "@/contexts/cartContext";
 import { LuStar, LuShoppingBag } from "react-icons/lu";
 
 interface ProductCardProps {

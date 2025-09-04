@@ -1,24 +1,42 @@
 import { getProducts } from "@/services/product";
 import { getCategories } from "@/services/category";
 import { PaginationControls } from "@/components/pagination";
+import { ProductCard } from "@/components/productCard";
 import { CategoryList } from "@/components/category";
-import { ProductCard } from "@/components/productCard"; 
 
-export default async function HomePage({ searchParams }: { searchParams: { page?: string } }) {
+export default async function SearchPage({
+  searchParams,
+}: {
+  searchParams: { q?: string; page?: string };
+}) {
+  
+  const searchTermParam = searchParams.q;
+  const searchTerm = searchTermParam || '';
   const pageParam = searchParams.page;
   const currentPage = Number(pageParam) || 1;
-  const [productsResponse, categories] = await Promise.all([
-    getProducts({ page: currentPage, limit: 8 }),
+
+  
+  const [apiResponse, categories] = await Promise.all([
+    getProducts({
+      search: searchTerm,
+      page: currentPage,
+      limit: 8,
+    }),
     getCategories()
   ]);
-  const { products, pagination } = productsResponse;
+  
+  const { products, pagination } = apiResponse;
 
   return (
+    
     <div className="bg-gray-100 min-h-screen">
       <main className="container mx-auto p-4 md:p-8">
-        <h1 className="text-3xl font-bold mb-8 text-gray-800">Todos os produtos</h1>
+        <h1 className="text-3xl font-bold mb-8 text-gray-800">
+          Resultados para: <span className="text-blue-600">{searchTerm}</span>
+        </h1>
+
         {products.length === 0 ? (
-          <p className="text-center text-gray-600">Nenhum produto encontrado.</p>
+          <p className="text-center text-gray-600">Nenhum produto encontrado para sua busca.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {products.map((product) => (
@@ -26,9 +44,17 @@ export default async function HomePage({ searchParams }: { searchParams: { page?
             ))}
           </div>
         )}
-        <PaginationControls totalPages={pagination.totalPages} />
+        
+        <PaginationControls
+          totalPages={pagination.totalPages}
+          basePath={`/busca?q=${searchTerm}`} 
+        />
       </main>
-      <CategoryList categories={categories} />
+
+     
+      <div className="bg-white">
+        <CategoryList categories={categories} />
+      </div>
     </div>
   );
 }

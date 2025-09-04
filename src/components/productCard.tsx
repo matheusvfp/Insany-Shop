@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Product } from "@/models/product";
-import { useCart } from "@/contexts/cartContext";
+import { Product } from "@/models/Product";
+import { useCart } from "@/contexts/cartContext"; 
 import { LuStar, LuShoppingBag } from "react-icons/lu";
-
+import toast from 'react-hot-toast'; 
 interface ProductCardProps {
   product: Product;
 }
@@ -15,6 +15,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   const handleAddToCart = () => {
     addToCart(product);
+    toast.success(`${product.name} foi adicionado!`);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { Product, ProductsAPIResponse } from "@/models/product";
+import { Product, ProductsAPIResponse } from "@/models/Product";
 
 const BASE_URL = 'https://api.insany.co';
 
@@ -40,10 +40,10 @@ export const getProducts = async (params: GetProductsParams = {}): Promise<Produ
 };
 
 
-export const getProductById = async (id: number | string): Promise<Product | null> => {
+export const getProductById = async (id: number | string): Promise<{ product: Product } | null> => {
   try {
     const url = `${BASE_URL}/api/products/${id}`;
-    const response = await fetch(url, { next: { revalidate: 3600 } }); 
+    const response = await fetch(url, { next: { revalidate: 3600 } });
     if (!response.ok) {
       if (response.status === 404) return null;
       throw new Error(`Erro na API: ${response.statusText}`);

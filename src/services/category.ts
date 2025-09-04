@@ -1,4 +1,4 @@
-import { Category, CategoriesAPIResponse } from "@/models/category";
+import { Category, CategoriesAPIResponse } from "@/models/Category";
 
 const BASE_URL = 'https://api.insany.co';
 

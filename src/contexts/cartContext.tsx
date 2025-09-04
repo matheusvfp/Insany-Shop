@@ -1,8 +1,8 @@
 'use client'; 
 
 import { createContext, useState, useContext, useEffect, ReactNode } from 'react';
-import { CartItem } from '@/models/cart';
-import { Product } from '@/models/product';
+import { CartItem } from '@/models/Cart';
+import { Product } from '@/models/Product';
 
 
 interface CartContextType {

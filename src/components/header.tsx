@@ -23,8 +23,7 @@ export const Header = () => {
       <div className="container mx-auto flex items-center"> 
         <Link href="/" className="text-3xl font-bold text-gray-800 mr-auto"> 
           InsanyShop
-        </Link>
-        
+        </Link>  
         <form 
           onSubmit={handleSearch} 
           className="flex-grow max-w-md mx-4 flex items-center bg-gray-100 rounded-lg p-2"
@@ -40,7 +39,7 @@ export const Header = () => {
             <LuSearch className="text-gray-500" size={20} />
           </button>
         </form>
-        
+   
         <div className="relative ml-auto"> 
           <Link href="/carrinho" aria-label="Ver carrinho de compras">
             <LuShoppingBag className="text-gray-800" size={28} />

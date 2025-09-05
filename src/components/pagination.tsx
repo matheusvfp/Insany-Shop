@@ -17,10 +17,8 @@ export const PaginationControls = ({
   const page = searchParams.get('page') ?? '1';
   const currentPage = Number(page);
 
-  
   const generatePageNumbers = () => {
     const pages = [];
-   
     let startPage = Math.max(1, currentPage - 2);
     let endPage = Math.min(totalPages, currentPage + 2);
 
@@ -39,43 +37,51 @@ export const PaginationControls = ({
 
   const pageNumbers = generatePageNumbers();
 
-  
   const createPageURL = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
     params.set('page', String(pageNumber));
     return `${basePath}?${params.toString()}`;
   };
 
+  if (totalPages <= 1) {
+    return null;
+  }
+
   return (
     <div className="flex items-center justify-center gap-2 mt-8">
-      
       <Link
         href={createPageURL(currentPage - 1)}
-        className={`p-2 rounded-md ${currentPage === 1 ? 'text-gray-600 pointer-events-none' : 'text-white hover:bg-gray-800'}`}
+        className={`flex items-center justify-center h-10 w-10 rounded-md border ${
+          currentPage === 1 
+            ? 'border-gray-200 text-gray-400 pointer-events-none' 
+            : 'border-gray-300 text-gray-800 hover:bg-gray-100'
+        }`}
         aria-disabled={currentPage === 1}
       >
         <LuChevronLeft size={20} />
       </Link>
 
-      
       {pageNumbers.map((pageNumber) => (
         <Link
           key={pageNumber}
           href={createPageURL(pageNumber)}
-          className={`px-4 py-2 rounded-md text-sm font-medium ${
+          className={`flex items-center justify-center h-10 w-10 rounded-md border text-sm font-medium ${
             currentPage === pageNumber
-              ? 'bg-blue-600 text-white'
-              : 'text-white hover:bg-gray-800'
+              ? 'bg-gray-600 text-white border-blue-600'
+              : 'bg-white text-gray-800 border-gray-300 hover:bg-gray-100'
           }`}
         >
           {pageNumber}
         </Link>
       ))}
 
-    
       <Link
         href={createPageURL(currentPage + 1)}
-        className={`p-2 rounded-md ${currentPage === totalPages ? 'text-gray-600 pointer-events-none' : 'text-white hover:bg-gray-800'}`}
+        className={`flex items-center justify-center h-10 w-10 rounded-md border ${
+          currentPage === totalPages 
+            ? 'border-gray-200 text-gray-400 pointer-events-none' 
+            : 'border-gray-300 text-gray-800 hover:bg-gray-100'
+        }`}
         aria-disabled={currentPage === totalPages}
       >
         <LuChevronRight size={20} />

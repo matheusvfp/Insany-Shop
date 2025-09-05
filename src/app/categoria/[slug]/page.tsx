@@ -1,3 +1,5 @@
+// src/app/categoria/[slug]/page.tsx
+
 import { getCategories } from "@/services/category";
 import { getProducts } from "@/services/product";
 import { PaginationControls } from "@/components/pagination";
@@ -33,10 +35,12 @@ export default async function CategoryPage({
   return (
     <div className="bg-gray-100 min-h-screen">
       <main className="container mx-auto p-4 md:p-8">
-        <h1 className="text-3xl font-bold mb-8 text-gray-800">
-          Categoria: <span className="text-blue-600">{categoryName}</span>
-           <SortFilter />
-        </h1>
+        <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 p-4 rounded-lg text-gray-800">
+          <h1 className="text-2xl font-bold text-gray-800">
+            <span className="text-black-600">{categoryName}</span>
+          </h1>
+          <SortFilter />
+        </div>
 
         {products.length === 0 ? (
           <p className="text-center text-gray-600">Nenhum produto encontrado nesta categoria.</p>
@@ -47,7 +51,6 @@ export default async function CategoryPage({
             ))}
           </div>
         )}
-        
         
         <PaginationControls
           totalPages={pagination.totalPages}

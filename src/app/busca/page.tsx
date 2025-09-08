@@ -52,7 +52,7 @@ export default async function SearchPage({
       </main>
 
      
-      <div className="bg-white">
+      <div className="bg-gray">
         <CategoryList categories={categories} />
       </div>
     </div>

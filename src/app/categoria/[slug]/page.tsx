@@ -58,7 +58,7 @@ export default async function CategoryPage({
         />
       </main>
       
-      <div className="bg-white">
+      <div className="bg-gray">
         <CategoryList categories={allCategories} />
       </div>
     </div>

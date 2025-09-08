@@ -26,13 +26,15 @@ export default async function HomePage({
   return (
     <div className="bg-gray-100 min-h-screen">
       <main className="container mx-auto p-4 md:p-8">
-        <div className="flex flex-col mb-6 gap-4 bg-gray p-4 rounded-lg ">
-          <div className="flex justify-between items-center w-full text-gray-800">
+        <div className="flex flex-col mb-6 gap-4 bg-gray p-4 rounded-lg">
+          
+          <div className="flex flex-col md:flex-row md:justify-between items-stretch md:items-center w-full text-gray-800 gap-4">
             <CategoryFilter categories={categories} />
             <SortFilter />
           </div>
 
-          <h1 className="text-3xl font-bold text-gray-800">
+         
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
             Todos os produtos
           </h1>
         </div>

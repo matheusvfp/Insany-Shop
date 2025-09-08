@@ -20,13 +20,15 @@ export const Header = () => {
 
   return (
     <header className="bg-white text-gray-800 p-4 shadow-md sticky top-0 z-10">
-      <div className="container mx-auto flex items-center"> 
-        <Link href="/" className="text-3xl font-bold text-gray-800 mr-auto"> 
+      <div className="container mx-auto flex items-center justify-between flex-wrap gap-4"> 
+        
+        <Link href="/" className="text-3xl font-bold text-gray-800"> 
           InsanyShop
         </Link>  
+        
         <form 
           onSubmit={handleSearch} 
-          className="flex-grow max-w-md mx-4 flex items-center bg-gray-100 rounded-lg p-2"
+          className="w-full md:w-auto md:flex-grow max-w-md flex items-center bg-gray-100 rounded-lg p-2 order-last md:order-none"
         >
           <input
             type="text"
@@ -39,8 +41,8 @@ export const Header = () => {
             <LuSearch className="text-gray-500" size={20} />
           </button>
         </form>
-   
-        <div className="relative ml-auto"> 
+    
+        <div className="relative"> 
           <Link href="/carrinho" aria-label="Ver carrinho de compras">
             <LuShoppingBag className="text-gray-800" size={28} />
             {cartCount > 0 && (
